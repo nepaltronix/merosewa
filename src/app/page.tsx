@@ -1,40 +1,68 @@
-"use client"
+"use client";
 
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
+import { Html5Qrcode, Html5QrcodeResult } from "html5-qrcode";
 
-export default function Home(){
-
+export default function Home() {
+  const html5QrCodeRef = useRef<Html5Qrcode | null>(null);
+  const [scanResult, setScanResult] = useState<string>("");
+  const [isScanning, setIsScanning] = useState<boolean>(false)
   const router = useRouter();
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      router.push('/payment'); // Replace '/target' with the path of the page you want to navigate to
-    }, 5000); // 5000 milliseconds = 5 seconds
+    html5QrCodeRef.current = new Html5Qrcode("qr-reader");
 
-    return () => clearTimeout(timer); // Clean up the timer if the component unmounts
+    const startScanning = () => {
+      if (html5QrCodeRef.current) {
+        html5QrCodeRef.current
+          .start(
+            { facingMode: "environment" },
+            {
+              fps: 10,
+              qrbox: { width: 250, height: 250 },
+            },
+            (decodedText: string, decodedResult: Html5QrcodeResult) => {
+              setScanResult(decodedText);
+              console.log(decodedResult);
+              router.push("/payment");
+            },
+            (errorMessage: string) => {
+              console.error("Error scanning:", errorMessage);
+            }
+          )
+          .catch((err) => {
+            console.error("Error starting scanner:", err);
+          });
+      }
+    };
+
+    if(isScanning){startScanning()};
+
+    return () => {
+      if (html5QrCodeRef.current) {
+        html5QrCodeRef.current
+          .stop()
+          .then(() => {
+            html5QrCodeRef.current?.clear();
+          })
+          .catch((err) => console.error("Failed to clear html5QrCode.", err));
+      }
+    };
   }, [router]);
 
   return (
-      <div className="bg-black h-screen flex flex-col">
-        {/* Header */}
-        <header className="bg-green-500 text-white p-4 flex justify-center">
-          <h1 className="text-lg">Scan To Pay</h1>
-          <div></div>
-        </header>
+    <div className="bg-black h-screen flex flex-col">
+      {/* Header */}
+      <header className="bg-green-500 text-white p-4 flex justify-center">
+        <h1 className="text-lg">Scan To Pay</h1>
+      </header>
 
-        {/* Scan Area */}
-        <div className="flex-1 flex flex-col items-center justify-center text-white">
-          <div className="flex items-center space-x-4 mb-4">
-            <img
-              src="fonepayQR.png"
-              alt="Nepal Pay"
-              className="h-10"
-            />
-          </div>
-          <p className="mb-4">Scan to Pay</p>
-          <div className="border-4 border-green-500 w-48 h-48"></div>
-        </div>
+      {/* Scan Area */}
+      <div className="flex-1 flex items-center justify-center text-white">
+        <div id="qr-reader" className="w-full h-full"></div>
+        <p id="scan-result" className="mt-4 text-lg">{scanResult}</p>
       </div>
-      );
-};
+    </div>
+  );
+}
