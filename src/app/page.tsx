@@ -33,7 +33,7 @@ export default function Home() {
           { facingMode: "environment" },
           {
             fps: 10, // Increase FPS for better mobile performance
-            qrbox: { width: 250, height: 250 },
+            qrbox: { width: 250, height: 500 },
           },
           (decodedText: string, decodedResult: Html5QrcodeResult) => {
             setScanResult(decodedText);
