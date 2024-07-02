@@ -58,6 +58,7 @@ export default function Home() {
     if(html5QrCodeRef.current){
       html5QrCodeRef.current.stop();
       setIsScanning(false);
+      router.push("/payment")
     }
   }
 
