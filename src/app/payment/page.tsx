@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import useAppStore from '@/lib/useStore';
 
 export default function Payment() {
-    const {userName, remainingBalance, merchantId, merchantName, transactionID, transcationAmount} = useAppStore()
+    const {userName, remainingBalance, merchantId, merchantName, transactionID, transactionAmount} = useAppStore()
     const router = useRouter();
 
     const [amount, setAmount] = useState('');
@@ -61,7 +61,7 @@ export default function Payment() {
             {/* Send Amount */}
             <div className="p-4 bg-gray-800 flex items-center justify-between">
                 <p className="text-xl">Send Amount</p>
-                <p className="text-2xl font-semibold">Rs. {transcationAmount || '00.00'}</p>
+                <p className="text-2xl font-semibold">Rs. {transactionAmount}</p>
             </div>
 
             {/* Keypad */}

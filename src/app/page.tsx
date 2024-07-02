@@ -58,7 +58,7 @@ export default function Home() {
     const scannedData = JSON.parse(decodedText);
     setMerchantName(scannedData.merchantName);
     setMerchantId(scannedData.merchantId);
-    setTransactionAmount(scannedData.transactionID);
+    setTransactionAmount(scannedData.transcationAmount);
     setTransactionId(scannedData.transactionID);
     if (html5QrCodeRef.current) {
       html5QrCodeRef.current.stop();

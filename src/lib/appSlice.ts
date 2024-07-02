@@ -5,7 +5,7 @@ export interface appSlice {
   merchantName: string;
   merchantId: string;
   transactionID: string;
-  transcationAmount: number;
+  transactionAmount: number;
   remainingBalance: number;
   updateRemainingBalance: () => void;
   setUserName: (name: string) => void;
@@ -25,11 +25,11 @@ export const createAppSlice: StateCreator<
   merchantName: '',
   merchantId: '',
   transactionID: '',
-  transcationAmount: 0,
+  transactionAmount: 0,
   remainingBalance: 10000,
   updateRemainingBalance: () =>
     set((state: appSlice) => ({
-      remainingBalance: state.remainingBalance - state.transcationAmount,
+      remainingBalance: state.remainingBalance - state.transactionAmount,
     })),
   setUserName: (name) =>
     set(() => ({
