@@ -54,7 +54,7 @@ export default function Payment() {
             <div className="p-4 bg-black flex items-center justify-between">
                 <div>
                     <p className="text-xl font-semibold">{merchantName}</p>
-                    <p className="text-gray-400">meropay ID - {transactionID}</p>
+                    <p className="text-gray-400">meropay ID - {merchantId}</p>
                 </div>
             </div>
 
