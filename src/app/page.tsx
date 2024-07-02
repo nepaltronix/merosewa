@@ -54,7 +54,7 @@ export default function Home() {
   };
 
   return (
-    <div className="bg-black h-screen flex flex-col">
+    <div className="bg-black h-dvh flex flex-col">
       {/* Header */}
       <header className="bg-green-500 text-white p-4 flex justify-center">
         <h1 className="text-lg">Scan To Pay</h1>
