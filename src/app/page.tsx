@@ -15,7 +15,7 @@ export default function Home() {
     html5QrCodeRef.current = html5QrCode;
 
     return () => {
-      if (html5QrCode) {
+      if (html5QrCode && isScanning) {
         html5QrCode
           .stop()
           .then(() => {
@@ -36,9 +36,7 @@ export default function Home() {
             qrbox: { width: 250, height: 500 },
           },
           (decodedText: string, decodedResult: Html5QrcodeResult) => {
-            setScanResult(decodedText);
-            console.log(decodedResult);
-            router.push("/payment");
+            handleScannedResult(decodedText, decodedResult);
           },
           (errorMessage: string) => {
             console.error("Error scanning:", errorMessage);
@@ -46,12 +44,22 @@ export default function Home() {
         )
         .then(() => {
           setIsScanning(true);
+          console.log("Scanning is true.")
         })
         .catch((err) => {
           console.error("Error starting scanner:", err);
         });
     }
   };
+
+  const handleScannedResult = function(decodedText: string, decodedResult:Html5QrcodeResult){
+    setScanResult(decodedText);
+    console.log(typeof(decodedText))
+    if(html5QrCodeRef.current){
+      html5QrCodeRef.current.stop();
+      setIsScanning(false);
+    }
+  }
 
   return (
     <div className="bg-black h-dvh flex flex-col">
