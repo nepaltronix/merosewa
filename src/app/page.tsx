@@ -15,7 +15,7 @@ export default function Home() {
     html5QrCodeRef.current = html5QrCode;
 
     return () => {
-      if (html5QrCode && isScanning) {
+      if (html5QrCode) {
         html5QrCode
           .stop()
           .then(() => {
@@ -32,13 +32,13 @@ export default function Home() {
         .start(
           { facingMode: "environment" },
           {
-            fps: 1,
+            fps: 10, // Increase FPS for better mobile performance
             qrbox: { width: 250, height: 250 },
           },
           (decodedText: string, decodedResult: Html5QrcodeResult) => {
             setScanResult(decodedText);
             console.log(decodedResult);
-            handleScanResult(decodedText);
+            router.push("/payment");
           },
           (errorMessage: string) => {
             console.error("Error scanning:", errorMessage);
@@ -52,14 +52,6 @@ export default function Home() {
         });
     }
   };
-
-  const handleScanResult = function(decodedText: string){
-    console.log(decodedText);
-    if(html5QrCodeRef.current){
-      html5QrCodeRef.current.stop();
-    }
-    router.push("/payment")
-  }
 
   return (
     <div className="bg-black h-screen flex flex-col">
