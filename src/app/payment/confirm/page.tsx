@@ -25,18 +25,19 @@ export default function Confirm() {
 
     const verifyPinAndConfirm = function () {
         if (value == '123456') {
-            window.alert("Correct pin")
             axios.post('http://127.0.0.1:5001/confirm_payment', {
                 transactionId: transactionId,
             })
                 .then(function (response) {
                     console.log(response.data)
+                    window.alert('Transaction Completed.')
+                    updateRemainingBalance();
+                    router.push("/")
                 })
                 .catch(function (error) {
+                    window.alert('Transaction Failed.')
                     console.log(error);
                 });
-            updateRemainingBalance();
-            router.push("/")
 
         } else {
             window.alert("Incorrect Pin")
