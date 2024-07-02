@@ -8,10 +8,11 @@ import {
     InputOTPSlot,
 } from "@/components/ui/input-otp"
 import { useRouter } from "next/navigation";
+import useAppStore from '@/lib/useStore'
 
 export default function Confirm() {
     const router = useRouter();
-
+    const { transactionAmount, updateRemainingBalance} = useAppStore();
     const [value, setValue] = useState("")
 
     const handleButtonClick = function (event: React.MouseEvent<HTMLButtonElement>) {
@@ -24,6 +25,7 @@ export default function Confirm() {
     const verifyPinAndConfirm = function () {
         if (value == '123456') {
             window.alert("Correct pin")
+            updateRemainingBalance();
             router.push("/")
 
         } else {
@@ -68,7 +70,7 @@ export default function Confirm() {
             <div className="p-4 bg-black flex items-center justify-between">
                 <div>
                     <p className="text-gray-400">NPR</p>
-                    <p className="text-2xl font-semibold">XXXX.XX</p>
+                    <p className="text-2xl font-semibold">{transactionAmount}</p>
                 </div>
             </div>
 

@@ -49,6 +49,6 @@ export const createAppSlice: StateCreator<
     })),
   setTransactionAmount: (amount) =>
     set(() => ({
-      transcationAmount: amount,
+      transactionAmount: amount,
     })),
 });

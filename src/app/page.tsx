@@ -46,7 +46,6 @@ export default function Home() {
         )
         .then(() => {
           setIsScanning(true);
-          console.log("Scanning is true.")
         })
         .catch((err) => {
           console.error("Error starting scanner:", err);
@@ -56,9 +55,10 @@ export default function Home() {
 
   const handleScannedResult = function (decodedText: string, decodedResult: Html5QrcodeResult) {
     const scannedData = JSON.parse(decodedText);
+    console.log(scannedData.transcationAmount);
     setMerchantName(scannedData.merchantName);
     setMerchantId(scannedData.merchantId);
-    setTransactionAmount(scannedData.transcationAmount);
+    setTransactionAmount(scannedData.transactionAmount);
     setTransactionId(scannedData.transactionID);
     if (html5QrCodeRef.current) {
       html5QrCodeRef.current.stop();
