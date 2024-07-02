@@ -23,11 +23,11 @@ export default function Confirm() {
 
     const verifyPinAndConfirm = function () {
         if (value == '123456') {
-            console.log("Correct pin")
+            window.alert("Correct pin")
             router.push("/")
 
         } else {
-            console.log("incorrect")
+            window.alert("Incorrect Pin")
             setValue('')
         }
     }
