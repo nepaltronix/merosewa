@@ -1,26 +1,50 @@
 "use client"
-import { useRouter } from 'next/navigation';
-import React, { useState } from 'react';
 
-export default function Payment() {
+import { useState } from "react";
+import {
+    InputOTP,
+    InputOTPGroup,
+    InputOTPSeparator,
+    InputOTPSlot,
+} from "@/components/ui/input-otp"
+import { useRouter } from "next/navigation";
 
+export default function Confirm() {
     const router = useRouter();
 
-    const [amount, setAmount] = useState('');
+    const [value, setValue] = useState("")
 
-    const pushmpin = () => {
-        router.push("payment/confirm")
-    };
+    const handleButtonClick = function (event: React.MouseEvent<HTMLButtonElement>) {
+        const value = event.currentTarget.textContent;
+        if (value) {
+            setValue((prevInput) => prevInput + value);
+        }
+    }
 
-    const handleBackspace = () => {
-        setAmount((prev) => prev.slice(0, -1));
-    };
+    const verifyPinAndConfirm = function () {
+        if (value == '123456') {
+            console.log("Correct pin")
+            router.push("/")
+
+        } else {
+            console.log("incorrect")
+            setValue('')
+        }
+    }
+
+    const handleOnBackClick = function(){
+        router.back();
+    }
+
+    const handleBackSpace = function () {
+        setValue((prev) => prev.slice(0, -1));
+    }
 
     return (
         <div className="bg-black h-screen flex flex-col text-white">
             {/* Header */}
             <header className="bg-green-500 p-4 flex items-center justify-between">
-                <button className="text-white" onClick={() => router.back()}>
+                <button className="text-white" onClick={handleOnBackClick}>
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
@@ -43,10 +67,9 @@ export default function Payment() {
             {/* Balance */}
             <div className="p-4 bg-black flex items-center justify-between">
                 <div>
-                    <p className="text-gray-400">Balance</p>
-                    <p className="text-2xl font-semibold">Rs. XXXX.XX</p>
+                    <p className="text-gray-400">NPR</p>
+                    <p className="text-2xl font-semibold">XXXX.XX</p>
                 </div>
-
             </div>
 
             {/* Recipient Info */}
@@ -59,8 +82,26 @@ export default function Payment() {
 
             {/* Send Amount */}
             <div className="p-4 bg-gray-800 flex items-center justify-between">
-                <p className="text-xl">Send Amount</p>
-                <p className="text-2xl font-semibold">Rs. {amount || '00.00'}</p>
+                <p className="text-xl">PIN</p>
+                <div className="space-y-2">
+                    <InputOTP
+                        maxLength={6}
+                        value={value}
+                        onChange={(value) => setValue(value)}
+                    >
+                        <InputOTPGroup>
+                            <InputOTPSlot index={0} />
+                            <InputOTPSlot index={1} />
+                            <InputOTPSlot index={2} />
+                        </InputOTPGroup>
+                        <InputOTPSeparator />
+                        <InputOTPGroup>
+                            <InputOTPSlot index={3} />
+                            <InputOTPSlot index={4} />
+                            <InputOTPSlot index={5} />
+                        </InputOTPGroup>
+                    </InputOTP>
+                </div>
             </div>
 
             {/* Keypad */}
@@ -70,13 +111,14 @@ export default function Payment() {
                         <button
                             key={key}
                             className="bg-gray-700 p-4 rounded text-xl"
+                            onClick={(event) => handleButtonClick(event)}
                         >
                             {key}
                         </button>
                     ))}
                     <button
                         className="bg-gray-700 p-4 rounded text-xl"
-                        onClick={handleBackspace}
+                        onClick={handleBackSpace}
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -98,10 +140,10 @@ export default function Payment() {
 
             {/* Continue Button */}
             <div className="p-4 bg-gray-900">
-                <button className="bg-green-500 w-full p-4 rounded text-lg font-semibold" onClick={pushmpin}>
-                    Continue
+                <button className="bg-green-500 w-full p-4 rounded text-lg font-semibold" onClick={verifyPinAndConfirm}>
+                    Pay Now
                 </button>
             </div>
         </div>
     );
-};
+}
