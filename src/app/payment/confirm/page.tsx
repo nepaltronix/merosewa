@@ -8,11 +8,12 @@ import {
     InputOTPSlot,
 } from "@/components/ui/input-otp"
 import { useRouter } from "next/navigation";
-import useAppStore from '@/lib/useStore'
+import useAppStore from '@/lib/useStore';
+import axios from "axios";
 
 export default function Confirm() {
     const router = useRouter();
-    const { transactionAmount, updateRemainingBalance} = useAppStore();
+    const { transactionAmount, updateRemainingBalance, transactionId } = useAppStore();
     const [value, setValue] = useState("")
 
     const handleButtonClick = function (event: React.MouseEvent<HTMLButtonElement>) {
@@ -25,6 +26,15 @@ export default function Confirm() {
     const verifyPinAndConfirm = function () {
         if (value == '123456') {
             window.alert("Correct pin")
+            axios.post('http://127.0.0.1:5001/confirm_payment', {
+                transactionId: transactionId,
+            })
+                .then(function (response) {
+                    console.log(response.data)
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
             updateRemainingBalance();
             router.push("/")
 
@@ -34,7 +44,7 @@ export default function Confirm() {
         }
     }
 
-    const handleOnBackClick = function(){
+    const handleOnBackClick = function () {
         router.back();
     }
 

@@ -2,14 +2,27 @@
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import useAppStore from '@/lib/useStore';
+import axios from 'axios';
 
 export default function Payment() {
-    const {userName, remainingBalance, merchantId, merchantName, transactionID, transactionAmount} = useAppStore()
+    const { transactionId, remainingBalance, merchantId, merchantName, setTransactionId, transactionAmount } = useAppStore()
     const router = useRouter();
 
     const [amount, setAmount] = useState('');
 
-    const pushmpin = () => {
+    const makePaymentReq = () => {
+        axios.post('http://127.0.0.1:5001/request_payment', {
+            merchantId: merchantId,
+            transactionAmount: transactionAmount,
+            merchantName: merchantName
+        })
+            .then(function (response) {
+                const { _transactionId } = response.data
+                setTransactionId(_transactionId)
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
         router.push("payment/confirm")
     };
 
@@ -99,7 +112,7 @@ export default function Payment() {
 
             {/* Continue Button */}
             <div className="p-4 bg-gray-900">
-                <button className="bg-green-500 w-full p-4 rounded text-lg font-semibold" onClick={pushmpin}>
+                <button className="bg-green-500 w-full p-4 rounded text-lg font-semibold" onClick={makePaymentReq}>
                     Continue
                 </button>
             </div>

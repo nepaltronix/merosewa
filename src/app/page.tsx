@@ -59,7 +59,6 @@ export default function Home() {
     setMerchantName(scannedData.merchantName);
     setMerchantId(scannedData.merchantId);
     setTransactionAmount(scannedData.transactionAmount);
-    setTransactionId(scannedData.transactionID);
     if (html5QrCodeRef.current) {
       html5QrCodeRef.current.stop();
       setIsScanning(false);
