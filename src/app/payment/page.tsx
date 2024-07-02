@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import useAppStore from '@/lib/useStore';
 
 export default function Payment() {
-    const {userName, remainingBalance} = useAppStore()
+    const {userName, remainingBalance, merchantId, merchantName, transactionID, transcationAmount} = useAppStore()
     const router = useRouter();
 
     const [amount, setAmount] = useState('');
@@ -53,15 +53,15 @@ export default function Payment() {
             {/* Recipient Info */}
             <div className="p-4 bg-black flex items-center justify-between">
                 <div>
-                    <p className="text-xl font-semibold">{userName}</p>
-                    <p className="text-gray-400">meropay ID - a3clsjn5</p>
+                    <p className="text-xl font-semibold">{merchantName}</p>
+                    <p className="text-gray-400">meropay ID - {transactionID}</p>
                 </div>
             </div>
 
             {/* Send Amount */}
             <div className="p-4 bg-gray-800 flex items-center justify-between">
                 <p className="text-xl">Send Amount</p>
-                <p className="text-2xl font-semibold">Rs. {amount || '00.00'}</p>
+                <p className="text-2xl font-semibold">Rs. {transcationAmount || '00.00'}</p>
             </div>
 
             {/* Keypad */}

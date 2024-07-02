@@ -6,7 +6,7 @@ import { Html5Qrcode, Html5QrcodeResult } from "html5-qrcode";
 import useAppStore from '@/lib/useStore'
 
 export default function Home() {
-  const {merchantId, merchantName, transcationAmount, transactionID} = useAppStore()
+  const { setMerchantId, setMerchantName, setTransactionAmount, setTransactionId } = useAppStore()
   const html5QrCodeRef = useRef<Html5Qrcode | null>(null);
   const [scanResult, setScanResult] = useState<string>("");
   const [isScanning, setIsScanning] = useState<boolean>(false);
@@ -54,13 +54,16 @@ export default function Home() {
     }
   };
 
-  const handleScannedResult = function(decodedText: string, decodedResult:Html5QrcodeResult){
-    setScanResult(decodedText);
-    console.log(typeof(decodedText))
-    if(html5QrCodeRef.current){
+  const handleScannedResult = function (decodedText: string, decodedResult: Html5QrcodeResult) {
+    const scannedData = JSON.parse(decodedText);
+    setMerchantName(scannedData.merchantName);
+    setMerchantId(scannedData.merchantId);
+    setTransactionAmount(scannedData.transactionID);
+    setTransactionId(scannedData.transactionID);
+    if (html5QrCodeRef.current) {
       html5QrCodeRef.current.stop();
       setIsScanning(false);
-      router.push("/payment")
+      router.push("/payment");
     }
   }
 
