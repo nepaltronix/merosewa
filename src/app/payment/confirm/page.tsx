@@ -43,7 +43,7 @@ export default function Confirm() {
     }
 
     return (
-        <div className="bg-black h-screen flex flex-col text-white">
+        <div className="bg-black h-dvh flex flex-col text-white">
             {/* Header */}
             <header className="bg-green-500 p-4 flex items-center justify-between">
                 <button className="text-white" onClick={handleOnBackClick}>
