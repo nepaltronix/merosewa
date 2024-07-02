@@ -1,9 +1,10 @@
 "use client"
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
+import useAppStore from '@/lib/useStore';
 
 export default function Payment() {
-
+    const {userName, remainingBalance} = useAppStore()
     const router = useRouter();
 
     const [amount, setAmount] = useState('');
@@ -44,7 +45,7 @@ export default function Payment() {
             <div className="p-4 bg-black flex items-center justify-between">
                 <div>
                     <p className="text-gray-400">Balance</p>
-                    <p className="text-2xl font-semibold">Rs. XXXX.XX</p>
+                    <p className="text-2xl font-semibold">Rs. {remainingBalance}</p>
                 </div>
 
             </div>
@@ -52,7 +53,7 @@ export default function Payment() {
             {/* Recipient Info */}
             <div className="p-4 bg-black flex items-center justify-between">
                 <div>
-                    <p className="text-xl font-semibold">Rajesh Hamal</p>
+                    <p className="text-xl font-semibold">{userName}</p>
                     <p className="text-gray-400">meropay ID - a3clsjn5</p>
                 </div>
             </div>

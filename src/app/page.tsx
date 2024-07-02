@@ -3,8 +3,10 @@
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { Html5Qrcode, Html5QrcodeResult } from "html5-qrcode";
+import useAppStore from '@/lib/useStore'
 
 export default function Home() {
+  const {merchantId, merchantName, transcationAmount, transactionID} = useAppStore()
   const html5QrCodeRef = useRef<Html5Qrcode | null>(null);
   const [scanResult, setScanResult] = useState<string>("");
   const [isScanning, setIsScanning] = useState<boolean>(false);
