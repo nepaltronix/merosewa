@@ -11,7 +11,7 @@ export default function Payment() {
     const [amount, setAmount] = useState('');
 
     const makePaymentReq = () => {
-        axios.post('https://server.nepatronix.com:5001/request_payment', {
+        axios.post('https://server.nepatronix.com/request_payment', {
             merchantId: merchantId,
             transactionAmount: transactionAmount,
             merchantName: merchantName
