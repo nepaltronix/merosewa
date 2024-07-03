@@ -31,6 +31,7 @@ export default function Confirm() {
                 .then(function (response) {
                     console.log(response.data)
                     window.alert('Transaction Completed.')
+                    axios.get('https://utsav.app.n8n.cloud/webhook/655c0bbc-ff5c-4315-b8dc-e6b2abc5f2fd')
                     updateRemainingBalance();
                     router.push("/")
                 })
@@ -154,7 +155,7 @@ export default function Confirm() {
             {/* Continue Button */}
             <div className="p-4 bg-gray-900">
                 <button className="bg-green-500 w-full p-4 rounded text-lg font-semibold" onClick={verifyPinAndConfirm}>
-                    Pay Now
+                    Confirm Payment
                 </button>
             </div>
         </div>
