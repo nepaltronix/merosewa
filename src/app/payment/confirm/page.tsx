@@ -13,7 +13,7 @@ import axios from "axios";
 
 export default function Confirm() {
     const router = useRouter();
-    const { transactionAmount, updateRemainingBalance, transactionId } = useAppStore();
+    const { transactionAmount, updateRemainingBalance, transactionId, merchantId, merchantName } = useAppStore();
     const [value, setValue] = useState("")
 
     const handleButtonClick = function (event: React.MouseEvent<HTMLButtonElement>) {
@@ -88,8 +88,8 @@ export default function Confirm() {
             {/* Recipient Info */}
             <div className="p-4 bg-black flex items-center justify-between">
                 <div>
-                    <p className="text-xl font-semibold">Rajesh Hamal</p>
-                    <p className="text-gray-400">meropay ID - a3clsjn5</p>
+                    <p className="text-xl font-semibold">{merchantId}</p>
+                    <p className="text-gray-400">meropay ID - {merchantName}</p>
                 </div>
             </div>
 
