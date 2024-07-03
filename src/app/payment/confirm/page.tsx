@@ -90,8 +90,8 @@ export default function Confirm() {
             {/* Recipient Info */}
             <div className="p-4 bg-black flex items-center justify-between">
                 <div>
-                    <p className="text-xl font-semibold">{merchantId}</p>
-                    <p className="text-gray-400">meropay ID - {merchantName}</p>
+                    <p className="text-xl font-semibold">{merchantName}</p>
+                    <p className="text-gray-400">meropay ID - {merchantId}</p>
                 </div>
             </div>
 
