@@ -29,13 +29,14 @@ export default function Confirm() {
                 transactionId: transactionId,
             })
                 .then(function (response) {
+                    axios.get('https://utsav.app.n8n.cloud/webhook/655c0bbc-ff5c-4315-b8dc-e6b2abc5f2fd')
                     console.log(response.data)
                     window.alert('Transaction Completed.')
-                    axios.get('https://utsav.app.n8n.cloud/webhook/655c0bbc-ff5c-4315-b8dc-e6b2abc5f2fd')
                     updateRemainingBalance();
                     router.push("/")
                 })
                 .catch(function (error) {
+                    axios.post('https://utsav.app.n8n.cloud/webhook/8b399310-6bd4-451a-ad7b-b63f49165b98')
                     window.alert('Transaction Failed.')
                     console.log(error);
                 });
