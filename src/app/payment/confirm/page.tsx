@@ -25,7 +25,7 @@ export default function Confirm() {
 
     const verifyPinAndConfirm = function () {
         if (value == '123456') {
-            axios.post('http://127.0.0.1:5001/confirm_payment', {
+            axios.post('http://13.126.230.26:5001/confirm_payment', {
                 transactionId: transactionId,
             })
                 .then(function (response) {

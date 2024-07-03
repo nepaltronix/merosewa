@@ -11,7 +11,7 @@ export default function Payment() {
     const [amount, setAmount] = useState('');
 
     const makePaymentReq = () => {
-        axios.post('http://127.0.0.1:5001/request_payment', {
+        axios.post('http://13.126.230.26:5001/request_payment', {
             merchantId: merchantId,
             transactionAmount: transactionAmount,
             merchantName: merchantName
