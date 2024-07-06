@@ -13,18 +13,6 @@ export default function Payment() {
     const makePaymentReq = () => {
         console.log(transactionId);
         router.push("payment/confirm");
-        // axios.post('https://server.nepatronix.com/request_payment', {
-        //     merchantId: merchantId,
-        //     transactionAmount: transactionAmount,
-        //     merchantName: merchantName
-        // })
-        //     .then(function (response) {
-        //         const { _transactionId } = response.data
-        //         setTransactionId(_transactionId)
-        //     })
-        //     .catch(function (error) {
-        //         console.log(error);
-        //     });
     };
 
     const handleBackspace = () => {
@@ -69,6 +57,7 @@ export default function Payment() {
                 <div>
                     <p className="text-xl font-semibold">{merchantName}</p>
                     <p className="text-gray-400">meropay ID - {merchantId}</p>
+                    <p className="text-gray-400">Transaction ID - {transactionId}</p>
                 </div>
             </div>
 

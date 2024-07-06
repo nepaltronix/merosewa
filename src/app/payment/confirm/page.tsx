@@ -92,6 +92,7 @@ export default function Confirm() {
                 <div>
                     <p className="text-xl font-semibold">{merchantName}</p>
                     <p className="text-gray-400">meropay ID - {merchantId}</p>
+                    <p className="text-gray-400">Transaction ID - {transactionId}</p>
                 </div>
             </div>
 
