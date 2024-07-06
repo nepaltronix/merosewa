@@ -11,19 +11,20 @@ export default function Payment() {
     const [amount, setAmount] = useState('');
 
     const makePaymentReq = () => {
-        axios.post('https://server.nepatronix.com/request_payment', {
-            merchantId: merchantId,
-            transactionAmount: transactionAmount,
-            merchantName: merchantName
-        })
-            .then(function (response) {
-                const { _transactionId } = response.data
-                setTransactionId(_transactionId)
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-        router.push("payment/confirm")
+        console.log(transactionId);
+        router.push("payment/confirm");
+        // axios.post('https://server.nepatronix.com/request_payment', {
+        //     merchantId: merchantId,
+        //     transactionAmount: transactionAmount,
+        //     merchantName: merchantName
+        // })
+        //     .then(function (response) {
+        //         const { _transactionId } = response.data
+        //         setTransactionId(_transactionId)
+        //     })
+        //     .catch(function (error) {
+        //         console.log(error);
+        //     });
     };
 
     const handleBackspace = () => {
